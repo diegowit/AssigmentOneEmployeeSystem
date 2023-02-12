@@ -8,6 +8,7 @@ class Employee (var firstName: String, var surname: String, var gender: Char, va
 
 
 
+var employee =  Employee("Joe", "Soap", 'm', 6143, 67543.21, 38.5, 5.2, 1450.50, 54.33)
 
 
 
@@ -51,10 +52,10 @@ fun menu() : Int {
 // redirected to a file and the end of file has been reached.
 }
 
-fun getFullName() = when (gender){
-    'm', 'M' -> "Mr. $firstName $surname"
-    'f', 'F' -> "Ms. $firstName $surname"
-    else -> "$firstName $surname"
+fun getFullName() = when (employee.gender){
+    'm', 'M' -> "Mr. ${employee.firstName} ${employee.surname}"
+    'f', 'F' -> "Ms.  ${employee.firstName} ${employee.surname}"
+    else ->  "${employee.firstName} ${employee.surname}"
 }
 
 
