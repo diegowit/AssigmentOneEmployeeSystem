@@ -1,16 +1,8 @@
 package main
 import kotlin.math.round
 
-class Employee (var firstName: String, var surname: String, var gender: Char, var employeeID: Int,
-    var grossSalary: Double, var payePercentage: Double, var prsiPercentage: Double,
-    var annualBonus: Double, var cycleToWorkMonthlyDeduction: Double)
-
-
-
 
 var employee =  Employee("Joe", "Soap", 'm', 6143, 67543.21, 38.5, 5.2, 1450.50, 54.33)
-
-
 
 fun main(args: Array<String>) {
 
@@ -19,7 +11,7 @@ fun main(args: Array<String>) {
     do {
         input = menu()
         when (input) {
-            8 -> println("add User: ${add()}")
+
             1 -> println("Monthly Salary: ${getMonthlySalary()}")
             2 -> println("Monthly PRSI: ${getMonthlyPRSI()}")
             3 -> println("Monthly PAYE: ${getMonthlyPAYE()}")
@@ -27,8 +19,8 @@ fun main(args: Array<String>) {
             5 -> println("Monthly Total Deductions: ${getTotalMonthlyDeductions()}")
             6 -> println("Monthly Net Pay: ${getNetMonthlyPay()}")
 
-
             7 -> println(getPayslip())
+            8 -> println("add User: ${add()}")
 
             -1 -> println("Exiting App")
             else -> println("Invalid Option")
@@ -39,7 +31,7 @@ fun main(args: Array<String>) {
 fun menu() : Int {
     print("""
          Employee Menu for ${getFullName()}
-           1. add user
+           
            1. Monthly Salary
            2. Monthly PRSI
            3. Monthly PAYE
@@ -47,6 +39,7 @@ fun menu() : Int {
            5. Monthly Total Deductions
            6. Monthly Net Pay
            7. Full Payslip
+           8. Add User.
        
           -1. Exit
          Enter Option : """)
