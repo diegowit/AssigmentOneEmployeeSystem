@@ -1,8 +1,10 @@
 package main
+
 import kotlin.math.round
 
 var employees = EmployeeAPI()
 
+fun menu() : Int {
 print("""
          |Employee Menu
          |   1. Add Employee
@@ -35,8 +37,11 @@ fun start() {
 }
 
 fun list(){
-    println(employees.findAll())
+    employees.findAll()
+        .forEach{ println(it.toString()) }
+    //using lambdas
 }
+
 
 fun search() {
     val employee = getEmployeeById()
@@ -47,22 +52,33 @@ fun search() {
 }
 
 
+fun paySlip(){
+    val employee = getEmployeeById()
+    if (employee != null)
+        println(employee.getPayslip())
+}
+
+
+fun dummyData() {
+    employees.create(Employee("Joe", "Soap", 'm', 0, 35655.43, 31.0, 7.5, 2000.0, 25.6))
+    employees.create(Employee("Joan", "Murphy", 'f', 0, 54255.13, 32.5, 7.0, 1500.0, 55.3))
+    employees.create(Employee("Mary", "Quinn", 'f', 0, 75685.41, 40.0, 8.5, 4500.0, 0.0))
+}
+
+
 internal fun getEmployeeById(): Employee? {
     print("Enter the employee id to search by: ")
     val employeeID = readLine()!!.toInt()
     return employees.findOne(employeeID)
 }
 
-
-fun add()){
+fun add(){
     print("Enter first name: ")
     val firstName = readLine().toString()
     print("Enter surname: ")
     val surname = readLine().toString()
     print("Enter gender (m/f): ")
     val gender = readLine()!!.toCharArray()[0]
-    print("Enter employee ID: ")
-    val employeeID = readLine()!!.toInt()
     print("Enter gross salary: ")
     val grossSalary = readLine()!!.toDouble()
     print("Enter PAYE %: ")
@@ -74,9 +90,12 @@ fun add()){
     print("Enter Cycle to Work Deduction: ")
     val cycleToWorkMonthlyDeduction= readLine()!!.toDouble()
 
-    employee = Employee(firstName, surname, gender, employeeID, grossSalary, payePercentage, prsiPercentage, annualBonus, cycleToWorkMonthlyDeduction)
+    employees.create(Employee(firstName, surname, gender, 0, grossSalary, payePercentage, prsiPercentage, annualBonus, cycleToWorkMonthlyDeduction))
 }
 
+fun main(args: Array<String>){
+    start()
+}
 
 
 //https://discuss.kotlinlang.org/t/how-do-you-round-a-number-to-n-decimal-places/8843
