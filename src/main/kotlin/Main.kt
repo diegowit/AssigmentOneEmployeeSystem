@@ -13,6 +13,7 @@ print("""
          |   2. List All Employees
          |   3. Search Employees
          |   4. Print Payslip for Employee
+         |   5. Update Employee details
          |  -1. Exit
          |
          |Enter Option : """.trimMargin())
@@ -30,6 +31,7 @@ fun start() {
             2 -> list()
             3 -> search()
             4 -> paySlip()
+            5 -> update()
             -99 -> dummyData()
             -1 -> println("Exiting App")
             else -> println("Invalid Option")
@@ -60,7 +62,34 @@ fun paySlip(){
         println(employee.getPayslip())
 }
 
+fun update(){
+    val employee = getEmployeeById()
+    if (employee != null) {
+        println("Enter the new first name: ")
+        employee.firstName = readLine()!!
 
+        println("Enter the new surname: ")
+        employee.surname = readLine()!!
+
+        println("Enter the new gender (m/f): ")
+        employee.gender = readLine()!![0]
+
+        println("Enter the new gross salary: ")
+        employee.grossSalary = readLine()!!.toDouble()
+
+        println("Enter the new PAYE percentage: ")
+        employee.payePercentage = readLine()!!.toDouble()
+
+        println("Enter the new PRSI percentage: ")
+        employee.prsiPercentage = readLine()!!.toDouble()
+
+        println("Enter the new annual bonus: ")
+        employee.annualBonus = readLine()!!.toDouble()
+
+        println("Enter the new cycle to work monthly deduction: ")
+        employee.cycleToWorkMonthlyDeduction = readLine()!!.toDouble()
+    }
+}
 fun dummyData() {
     employees.create(Employee("Joe", "Soap", 'm', 0, 35655.43, 31.0, 7.5, 2000.0, 25.6))
     employees.create(Employee("Joan", "Murphy", 'f', 0, 54255.13, 32.5, 7.0, 1500.0, 55.3))
@@ -112,17 +141,6 @@ fun roundTwoDecimals(number: Double) = round(number * 100) / 100
 
 
 
-/*This code calculates the monthly salary and deductions for an employee, and generates a payslip with the calculated values.
-
-The employee's information is stored as variables such as firstName, surname, gender, employeeID, etc. These values are then used to calculate various aspects of the employee's monthly pay such as the monthly salary, PRSI, PAYE, gross pay, total deductions, and net pay.
-
-The main function presents a menu to the user, which allows the user to choose what information they want to see. The menu options include the monthly salary, PRSI, PAYE, gross pay, total deductions, net pay, or a full payslip. The menu function prompts the user to enter their selection, and the when statement in the main function implements the selected option.
-
-The calculation of the various aspects of the employee's pay is done using functions such as getMonthlySalary, getMonthlyPRSI, getMonthlyPAYE, getGrossMonthlyPay, getTotalMonthlyDeductions, and getNetMonthlyPay. These functions make use of the values stored in the variables and other functions to perform the calculations.
-
-Finally, the getPayslip function generates a formatted string that represents the payslip, which includes the employee's information and the calculated values for their monthly pay.
-
-The roundTwoDecimals function is used to round the calculated values to two decimal places.*/
 
 
 
