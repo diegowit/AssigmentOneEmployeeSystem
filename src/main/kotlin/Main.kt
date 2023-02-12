@@ -1,17 +1,11 @@
 package main
 import kotlin.math.round
 
+class Employee (var firstName: String, var surname: String, var gender: Char, var employeeID: Int,
+    var grossSalary: Double, var payePercentage: Double, var prsiPercentage: Double,
+    var annualBonus: Double, var cycleToWorkMonthlyDeduction: Double)
 
 
-var firstName = "Joe"
-var surname = "Soap"
-var gender = 'm'
-var employeeID = 6143
-var grossSalary = 67543.21
-var payePercentage = 38.5
-var prsiPercentage = 5.2
-var annualBonus = 1450.50
-var cycleToWorkMonthlyDeduction = 54.33
 
 
 
