@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
             5 -> println("Monthly Total Deductions: ${getTotalMonthlyDeductions()}")
             6 -> println("Monthly Net Pay: ${getNetMonthlyPay()}")
             7 -> println(getPayslip())
-            8 -> updateEmployee()
+
             -1 -> println("Exiting App")
             else -> println("Invalid Option")
         }
@@ -59,53 +59,15 @@ fun getFullName() = when (employee.gender){
 }
 
 
-fun getMonthlySalary() = roundTwoDecimals(grossSalary / 12)
-fun getMonthlyPRSI() = roundTwoDecimals(getMonthlySalary() * (prsiPercentage / 100))
-fun getMonthlyPAYE() = roundTwoDecimals(getMonthlySalary() * (payePercentage / 100))
-fun getGrossMonthlyPay() = roundTwoDecimals(getMonthlySalary() + (annualBonus / 12))
-fun getTotalMonthlyDeductions() = roundTwoDecimals((getMonthlyPRSI() + getMonthlyPAYE() + cycleToWorkMonthlyDeduction))
+fun getMonthlySalary() = roundTwoDecimals(employee.grossSalary / 12)
+fun getMonthlyPRSI() = roundTwoDecimals(getMonthlySalary() * (employee.prsiPercentage / 100))
+fun getMonthlyPAYE() = roundTwoDecimals(getMonthlySalary() * (employee.payePercentage / 100))
+fun getGrossMonthlyPay() = roundTwoDecimals(getMonthlySalary() + (employee.annualBonus / 12))
+fun getTotalMonthlyDeductions() = roundTwoDecimals((getMonthlyPRSI() + getMonthlyPAYE() + employee.cycleToWorkMonthlyDeduction))
 fun getNetMonthlyPay() = roundTwoDecimals(roundTwoDecimals(getGrossMonthlyPay() - getTotalMonthlyDeductions()))
 
 
 
-
-fun updateEmployee() {
-    // Prompt the user to enter the new first name
-    println("Enter the new first name: ")
-    firstName = readLine()!!
-
-    // Prompt the user to enter the new surname
-    println("Enter the new surname: ")
-    surname = readLine()!!
-
-    // Prompt the user to enter the new gender
-    println("Enter the new gender (m/f): ")
-    gender = readLine()!![0]
-
-    // Prompt the user to enter the new employee ID
-    println("Enter the new employee ID: ")
-    employeeID = readLine()!!.toInt()
-
-    // Prompt the user to enter the new gross salary
-    println("Enter the new gross salary: ")
-    grossSalary = readLine()!!.toDouble()
-
-    // Prompt the user to enter the new PAYE percentage
-    println("Enter the new PAYE percentage: ")
-    payePercentage = readLine()!!.toDouble()
-
-    // Prompt the user to enter the new PRSI percentage
-    println("Enter the new PRSI percentage: ")
-    prsiPercentage = readLine()!!.toDouble()
-
-    // Prompt the user to enter the new annual bonus
-    println("Enter the new annual bonus: ")
-    annualBonus = readLine()!!.toDouble()
-
-    // Prompt the user to enter the new cycle to work monthly deduction
-    println("Enter the new cycle to work monthly deduction: ")
-    cycleToWorkMonthlyDeduction = readLine()!!.toDouble()
-}
 
 fun getPayslip() =
     """
