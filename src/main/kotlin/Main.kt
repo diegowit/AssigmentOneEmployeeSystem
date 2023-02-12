@@ -19,12 +19,15 @@ fun main(args: Array<String>) {
     do {
         input = menu()
         when (input) {
+            8 -> println("add User: ${add()}")
             1 -> println("Monthly Salary: ${getMonthlySalary()}")
             2 -> println("Monthly PRSI: ${getMonthlyPRSI()}")
             3 -> println("Monthly PAYE: ${getMonthlyPAYE()}")
             4 -> println("Monthly Gross Pay: ${getGrossMonthlyPay()}")
             5 -> println("Monthly Total Deductions: ${getTotalMonthlyDeductions()}")
             6 -> println("Monthly Net Pay: ${getNetMonthlyPay()}")
+
+
             7 -> println(getPayslip())
 
             -1 -> println("Exiting App")
@@ -36,6 +39,7 @@ fun main(args: Array<String>) {
 fun menu() : Int {
     print("""
          Employee Menu for ${getFullName()}
+           1. add user
            1. Monthly Salary
            2. Monthly PRSI
            3. Monthly PAYE
@@ -43,7 +47,7 @@ fun menu() : Int {
            5. Monthly Total Deductions
            6. Monthly Net Pay
            7. Full Payslip
-           8. Update Employee details
+       
           -1. Exit
          Enter Option : """)
     return readLine()!!.toInt() //Reads a line of input from
@@ -67,23 +71,45 @@ fun getTotalMonthlyDeductions() = roundTwoDecimals((getMonthlyPRSI() + getMonthl
 fun getNetMonthlyPay() = roundTwoDecimals(roundTwoDecimals(getGrossMonthlyPay() - getTotalMonthlyDeductions()))
 
 
+fun add()){
+    print("Enter first name: ")
+    val firstName = readLine().toString()
+    print("Enter surname: ")
+    val surname = readLine().toString()
+    print("Enter gender (m/f): ")
+    val gender = readLine()!!.toCharArray()[0]
+    print("Enter employee ID: ")
+    val employeeID = readLine()!!.toInt()
+    print("Enter gross salary: ")
+    val grossSalary = readLine()!!.toDouble()
+    print("Enter PAYE %: ")
+    val payePercentage = readLine()!!.toDouble()
+    print("Enter PRSI %: ")
+    val prsiPercentage = readLine()!!.toDouble()
+    print("Enter Annual Bonus: ")
+    val annualBonus= readLine()!!.toDouble()
+    print("Enter Cycle to Work Deduction: ")
+    val cycleToWorkMonthlyDeduction= readLine()!!.toDouble()
+
+    employee = Employee(firstName, surname, gender, employeeID, grossSalary, payePercentage, prsiPercentage, annualBonus, cycleToWorkMonthlyDeduction)
+}
 
 
 fun getPayslip() =
     """
         ______________________________________________________________________
-         Monthly Payslip:             ${getFullName()}, ID: $employeeID                  
+         Monthly Payslip:             ${getFullName()}, ID: $employee.employeeID                  
         ______________________________________________________________________    
               PAYMENT DETAILS (gross pay: ${getGrossMonthlyPay()})                                                                    
         ______________________________________________________________________
                    Salary: ${getMonthlySalary()}
-                   Bonus:  ${roundTwoDecimals(annualBonus / 12)}            
+                   Bonus:  ${roundTwoDecimals(employee.annualBonus / 12)}            
         ______________________________________________________________________
               DEDUCTION DETAILS (total Deductions: ${getTotalMonthlyDeductions()})      
         ______________________________________________________________________
                    PAYE: ${getMonthlyPAYE()}                
                    PRSI: ${getMonthlyPRSI()}  
-                   Cycle To Work: $cycleToWorkMonthlyDeduction         
+                   Cycle To Work: $employee.cycleToWorkMonthlyDeduction         
         ______________________________________________________________________
              NET PAY: ${getNetMonthlyPay()} 
         ______________________________________________________________________"""
