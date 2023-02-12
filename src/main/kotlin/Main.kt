@@ -1,5 +1,7 @@
 package main
 
+import main.controllers.EmployeeAPI
+import main.models.Employee
 import kotlin.math.round
 
 var employees = EmployeeAPI()
@@ -38,9 +40,9 @@ fun start() {
 
 fun list(){
     employees.findAll()
-        .forEach{ println(it.toString()) }
-    //using lambdas
+        .forEach{ println(it) }
 }
+
 
 
 fun search() {
@@ -92,9 +94,12 @@ fun add(){
 
     employees.create(Employee(firstName, surname, gender, 0, grossSalary, payePercentage, prsiPercentage, annualBonus, cycleToWorkMonthlyDeduction))
 }
+//val logger = KotlinLogging.logger {}
 
 fun main(args: Array<String>){
     start()
+   // logger.info { "Launching Employee App" }
+
 }
 
 
@@ -102,6 +107,7 @@ fun main(args: Array<String>){
 //There are several options...try each of them out
 fun roundTwoDecimals(number: Double) = round(number * 100) / 100
 //fun roundTwoDecimals(number: Double) = "%.2f".format(number).toDouble()
+
 
 
 

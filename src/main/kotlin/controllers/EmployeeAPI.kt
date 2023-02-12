@@ -1,4 +1,6 @@
-package main
+package main.controllers
+
+import main.models.Employee
 
 var lastId = 0
 
