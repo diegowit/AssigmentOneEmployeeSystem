@@ -1,67 +1,57 @@
 package main
 import kotlin.math.round
 
+var employees = EmployeeAPI()
 
-var employee =  Employee("Joe", "Soap", 'm', 6143, 67543.21, 38.5, 5.2, 1450.50, 54.33)
+print("""
+         |Employee Menu
+         |   1. Add Employee
+         |   2. List All Employees
+         |   3. Search Employees
+         |   4. Print Payslip for Employee
+         |  -1. Exit
+         |
+         |Enter Option : """.trimMargin())
+return readLine()!!.toInt()
+}
 
-fun main(args: Array<String>) {
 
-    var input:  Int
+fun start() {
+    var input: Int
 
     do {
         input = menu()
         when (input) {
-
-            1 -> println("Monthly Salary: ${getMonthlySalary()}")
-            2 -> println("Monthly PRSI: ${getMonthlyPRSI()}")
-            3 -> println("Monthly PAYE: ${getMonthlyPAYE()}")
-            4 -> println("Monthly Gross Pay: ${getGrossMonthlyPay()}")
-            5 -> println("Monthly Total Deductions: ${getTotalMonthlyDeductions()}")
-            6 -> println("Monthly Net Pay: ${getNetMonthlyPay()}")
-
-            7 -> println(getPayslip())
-            8 -> println("add User: ${add()}")
-
+            1 -> add()
+            2 -> list()
+            3 -> search()
+            4 -> paySlip()
+            -99 -> dummyData()
             -1 -> println("Exiting App")
             else -> println("Invalid Option")
         }
         println()
     } while (input != -1)
 }
-fun menu() : Int {
-    print("""
-         Employee Menu for ${getFullName()}
-           
-           1. Monthly Salary
-           2. Monthly PRSI
-           3. Monthly PAYE
-           4. Monthly Gross Pay
-           5. Monthly Total Deductions
-           6. Monthly Net Pay
-           7. Full Payslip
-           8. Add User.
-       
-          -1. Exit
-         Enter Option : """)
-    return readLine()!!.toInt() //Reads a line of input from
-// the standard input stream. Return the
-// line read or null if the input stream is
-// redirected to a file and the end of file has been reached.
+
+fun list(){
+    println(employees.findAll())
 }
 
-fun getFullName() = when (employee.gender){
-    'm', 'M' -> "Mr. ${employee.firstName} ${employee.surname}"
-    'f', 'F' -> "Ms.  ${employee.firstName} ${employee.surname}"
-    else ->  "${employee.firstName} ${employee.surname}"
+fun search() {
+    val employee = getEmployeeById()
+    if (employee == null)
+        println("No employee found")
+    else
+        println(employee)
 }
 
 
-fun getMonthlySalary() = roundTwoDecimals(employee.grossSalary / 12)
-fun getMonthlyPRSI() = roundTwoDecimals(getMonthlySalary() * (employee.prsiPercentage / 100))
-fun getMonthlyPAYE() = roundTwoDecimals(getMonthlySalary() * (employee.payePercentage / 100))
-fun getGrossMonthlyPay() = roundTwoDecimals(getMonthlySalary() + (employee.annualBonus / 12))
-fun getTotalMonthlyDeductions() = roundTwoDecimals((getMonthlyPRSI() + getMonthlyPAYE() + employee.cycleToWorkMonthlyDeduction))
-fun getNetMonthlyPay() = roundTwoDecimals(roundTwoDecimals(getGrossMonthlyPay() - getTotalMonthlyDeductions()))
+internal fun getEmployeeById(): Employee? {
+    print("Enter the employee id to search by: ")
+    val employeeID = readLine()!!.toInt()
+    return employees.findOne(employeeID)
+}
 
 
 fun add()){
@@ -88,24 +78,6 @@ fun add()){
 }
 
 
-fun getPayslip() =
-    """
-        ______________________________________________________________________
-         Monthly Payslip:             ${getFullName()}, ID: $employee.employeeID                  
-        ______________________________________________________________________    
-              PAYMENT DETAILS (gross pay: ${getGrossMonthlyPay()})                                                                    
-        ______________________________________________________________________
-                   Salary: ${getMonthlySalary()}
-                   Bonus:  ${roundTwoDecimals(employee.annualBonus / 12)}            
-        ______________________________________________________________________
-              DEDUCTION DETAILS (total Deductions: ${getTotalMonthlyDeductions()})      
-        ______________________________________________________________________
-                   PAYE: ${getMonthlyPAYE()}                
-                   PRSI: ${getMonthlyPRSI()}  
-                   Cycle To Work: $employee.cycleToWorkMonthlyDeduction         
-        ______________________________________________________________________
-             NET PAY: ${getNetMonthlyPay()} 
-        ______________________________________________________________________"""
 
 //https://discuss.kotlinlang.org/t/how-do-you-round-a-number-to-n-decimal-places/8843
 //There are several options...try each of them out
